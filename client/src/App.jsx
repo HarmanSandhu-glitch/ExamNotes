@@ -9,6 +9,9 @@ import Notes from './pages/Notes'
 import Pricing from './pages/Pricing'
 import PaymentSuccess from './pages/PaymentSuccess'
 import PaymentFailed from './pages/PaymentFailed'
+import Profile from './pages/Profile'
+import Dashboard from './pages/Dashboard'
+import GraphView from './pages/GraphView'
 export const serverUrl = "http://localhost:8000"
 
 function App() {
@@ -26,6 +29,9 @@ function App() {
       <Route path='/history' element={userData? <History/> : <Navigate to="/auth" replace/>}/>
       <Route path='/notes' element={userData? <Notes/> : <Navigate to="/auth" replace/>}/>
       <Route path='/pricing' element={userData? <Pricing/> : <Navigate to="/auth" replace/>}/>
+      <Route path='/profile' element={userData? <Profile/> : <Navigate to="/auth" replace/>}/>
+      <Route path='/dashboard' element={userData? <Dashboard/> : <Navigate to="/auth" replace/>}/>
+      <Route path='/graph' element={userData? <GraphView/> : <Navigate to="/auth" replace/>}/>
 
       <Route path='/payment-success' element={<PaymentSuccess/>}/>
       <Route path='/payment-failed' element={<PaymentFailed/>}/>

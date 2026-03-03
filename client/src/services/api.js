@@ -45,3 +45,50 @@ export const downloadPdf = async (result) => {
 
     }
 }
+
+export const deleteNote = async (id) => {
+    const result = await axios.delete(serverUrl + `/api/notes/${id}`, { withCredentials: true })
+    return result.data
+}
+
+export const updateProfile = async (payload) => {
+    const result = await axios.put(serverUrl + "/api/user/profile", payload, { withCredentials: true })
+    return result.data
+}
+
+export const getUserStats = async () => {
+    const result = await axios.get(serverUrl + "/api/user/stats", { withCredentials: true })
+    return result.data
+}
+
+// ─── Folders ──────────────────────────────────────────────────────────────────
+
+export const getFolders = async () => {
+    const result = await axios.get(serverUrl + "/api/folder", { withCredentials: true })
+    return result.data
+}
+
+export const createFolder = async (name, color = "#7c3aed") => {
+    const result = await axios.post(serverUrl + "/api/folder", { name, color }, { withCredentials: true })
+    return result.data
+}
+
+export const updateFolder = async (id, payload) => {
+    const result = await axios.put(serverUrl + `/api/folder/${id}`, payload, { withCredentials: true })
+    return result.data
+}
+
+export const deleteFolder = async (id) => {
+    const result = await axios.delete(serverUrl + `/api/folder/${id}`, { withCredentials: true })
+    return result.data
+}
+
+export const moveNoteToFolder = async (noteId, folderId) => {
+    const result = await axios.put(serverUrl + `/api/folder/move/${noteId}`, { folderId }, { withCredentials: true })
+    return result.data
+}
+
+export const getGraphData = async () => {
+    const result = await axios.get(serverUrl + "/api/notes/graph", { withCredentials: true })
+    return result.data
+}

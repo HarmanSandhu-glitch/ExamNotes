@@ -22,6 +22,12 @@ const notesSchema = new mongoose.Schema({
     includeDiagram: Boolean,
     includeChart: Boolean,
 
+    folder: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Folder",
+      default: null
+    },
+
     content: {
       type: mongoose.Schema.Types.Mixed, // AI response (string / JSON)
       required: true

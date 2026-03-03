@@ -1,37 +1,66 @@
 import UserModel from "../models/user.model.js"
 import { getToken } from "../utils/token.js"
+import bcrypt from "bcryptjs"
 
-
-e0xport const googleAuth = async (req,res) => {
+export const register = async (req, res) => {
     try {
-        
-        const {name , email} = req.body
-        let user = await UserModel.findOne({email})
-        if(!user){
-            user = await UserModel.create({
-                name , email
-            })
+        const { name, email, password } = req.body
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "All fields are required" })
         }
-        let token = await getToken(user._id)
-        res.cookie("token" , token , {
-            httpOnly:true,
-            secure:true,
-            samesite:"none",
-            maxAge:7 * 24 * 60 * 60 * 1000
-
+        const existing = await UserModel.findOne({ email })
+        if (existing) {
+            return res.status(400).json({ message: "Email already registered" })
+        }
+        const hashed = await bcrypt.hash(password, 10)
+        const user = await UserModel.create({ name, email, password: hashed })
+        const token = await getToken(user._id)
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 7 * 24 * 60 * 60 * 1000
         })
-        return res.status(200).json(user)
+        const { password: _, ...safeUser } = user.toObject()
+        return res.status(201).json(safeUser)
     } catch (error) {
-        return res.status(500).json({message:`googleSignup Error  ${error}`})
+        return res.status(500).json({ message: `Register Error: ${error}` })
     }
-    
 }
 
-export const logOut = async (req,res) => {
+export const login = async (req, res) => {
     try {
-        await res.clearCookie("token")
-         return res.status(200).json({message:"LogOut Successfully"})
+        const { email, password } = req.body
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email and password are required" })
+        }
+        const user = await UserModel.findOne({ email })
+        if (!user || !user.password) {
+            return res.status(400).json({ message: "Invalid email or password" })
+        }
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid email or password" })
+        }
+        const token = await getToken(user._id)
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
+        const { password: _, ...safeUser } = user.toObject()
+        return res.status(200).json(safeUser)
     } catch (error) {
-        return res.status(500).json({message:`Logout Error  ${error}`})
+        return res.status(500).json({ message: `Login Error: ${error}` })
+    }
+}
+
+export const logOut = async (req, res) => {
+    try {
+        res.clearCookie("token")
+        return res.status(200).json({ message: "LogOut Successfully" })
+    } catch (error) {
+        return res.status(500).json({ message: `Logout Error: ${error}` })
     }
 }

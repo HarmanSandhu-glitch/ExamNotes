@@ -8,134 +8,96 @@ import { useNavigate } from 'react-router-dom'
 function Home() {
   const navigate = useNavigate()
   return (
-    <div className='min-h-screen overflow-hidden bg-white text-black'>
+    <div className='min-h-screen bg-[#05050f] text-white overflow-hidden'>
+
+      {/* Ambient blobs */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-violet-700/15 blur-[130px]" />
+        <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-purple-700/10 blur-[120px]" />
+      </div>
+
       <Navbar />
-      {/* top */}
-      <section className='max-w-7xl mx-auto px-8 pt-32 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center'>
-        <div>
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            whileHover={{ rotateX: 6, rotateY: -6 }}
-            className="transform-gpu"
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            <motion.h1 className="text-5xl lg:text-6xl font-extrabold leading-tight
-              bg-gradient-to-br from-black/90 via-black/60 to-black/90
-              bg-clip-text text-transparent"
-              whileHover={{ y: -4 }}
-              style={{
-                transform: "translateZ(40px)",
-                textShadow: "0 18px 40px rgba(0,0,0,0.25)",
-              }}
-            >
-              Create Smart <br /> AI Notes in Seconds
 
-
-            </motion.h1>
-
-            <motion.p whileHover={{ y: -2 }}
-              className=' mt-6 max-w-xl text-lg
-              bg-gradient-to-br from-gray-700 via-gray-500/80 to-gray-700
-              bg-clip-text text-transparent'
-              style={{
-                transform: "translateZ(40px)",
-                textShadow: "0 18px 40px rgba(0,0,0,0.25)",
-              }}
-            >
-              Generate exam-focused notes, project documentation,
-              flow diagrams and revision-ready content using AI —
-              faster, cleaner and smarter.
-
-            </motion.p>
-            
-
-          </motion.div>
-
-          <motion.button
-            onClick={()=>navigate("/notes")}
-              whileHover={{
-                scale: 1.07
-              }}
-              whileTap={{ scale: 0.97 }}
-              
-              className='mt-10 px-10 py-3 rounded-xl
-                          flex items-center gap-3
-                          bg-gradient-to-br from-black/90 via-black/80 to-black/90
-                          border border-white/10
-                          text-white font-semibold text-lg
-                          shadow-[0_25px_60px_rgba(0,0,0,0.7)]'>
-              
-              Get Started
-
-
-            </motion.button>
-        </div>
-
-
-        <motion.div 
-         initial={{ opacity: 0, x: 60 }}
+      {/* Hero */}
+      <section className='relative z-10 max-w-7xl mx-auto px-8 pt-28 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'>
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
-          whileHover={{
-            y: -12,
-            rotateX: 8,
-            rotateY: -8,
-            scale: 1.05,
-          }}
-          className="transform-gpu"
-          style={{ transformStyle: "preserve-3d" }}
         >
-          <div className='overflow-hidden'>
-            <img src={img} alt="img" 
-              style={{ transform: "translateZ(35px)" }} />
-
+          <p className='text-xs font-semibold tracking-[0.2em] uppercase text-violet-400 mb-5'>AI-Powered Exam Notes</p>
+          <h1 className="text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight">
+            Create smart<br />
+            <span className='bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent'>AI notes</span> instantly
+          </h1>
+          <p className='mt-6 max-w-xl text-lg text-gray-400 leading-relaxed'>
+            Generate exam-focused notes, project documentation,
+            flow diagrams and revision-ready content using AI —
+            faster, cleaner and smarter.
+          </p>
+          <div className='flex items-center gap-4 mt-10 flex-wrap'>
+            <motion.button
+              onClick={() => navigate("/notes")}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className='px-8 py-3.5 rounded-xl font-semibold bg-violet-600 text-white hover:bg-violet-500 transition-colors'
+            >
+              Get Started →
+            </motion.button>
+            <button onClick={() => navigate("/pricing")} className='px-8 py-3.5 rounded-xl font-medium text-gray-400 border border-white/[0.12] hover:border-white/25 hover:text-white transition-colors'>
+              View Pricing
+            </button>
           </div>
-
+          <p className='mt-5 text-xs text-gray-500'>50 free credits · No card required · Instant access</p>
         </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
+          whileHover={{ y: -8, scale: 1.02 }}
+          className="relative transform-gpu"
+        >
+          <div className='absolute inset-0 rounded-3xl bg-gradient-to-br from-violet-600/20 to-purple-600/10 blur-xl' />
+          <div className='relative rounded-3xl overflow-hidden border border-white/[0.08] shadow-[0_40px_100px_rgba(0,0,0,0.6)]'>
+            <img src={img} alt="preview" className='w-full' />
+          </div>
+        </motion.div>
       </section>
 
-      {/* bottom */}
-      <section className='max-w-6xl mx-auto px-8 py-32 grid grid-cols-1 md:grid-cols-4 gap-10'>
-        <Feature icon="📘" title="Exam Notes" des="High-yield exam-oriented notes with revision points."/>
-        <Feature icon="📂" title="Project Notes" des="Well-structured content for assignments and projects." />
-        <Feature icon="📊" title="Diagrams" des="Auto-generated visual diagrams for clarity." />
-        <Feature icon="⬇️" title="PDF Download" des="Download clean, printable PDFs instantly." />
-
+      {/* Features */}
+      <section className='relative z-10 max-w-6xl mx-auto px-8 py-20 grid grid-cols-1 md:grid-cols-4 gap-5'>
+        {[
+          { title: "Exam Notes", des: "High-yield exam-oriented notes with revision points." },
+          { title: "Project Notes", des: "Well-structured content for assignments and projects." },
+          { title: "Diagrams", des: "Auto-generated visual diagrams for clarity." },
+          { title: "PDF Download", des: "Download clean, printable PDFs instantly." },
+        ].map((f) => (
+          <Feature key={f.title} {...f} />
+        ))}
       </section>
-      <Footer/>
 
+      <Footer />
     </div>
   )
 }
 
-function Feature({icon , title , des}){
-    return(
-        <motion.div 
-        whileHover={{ y: -12, rotateX: 8, rotateY: -8, scale: 1.05 }}
-       transition={{ type: "spring", stiffness: 200, damping: 18 }}
-        className='relative rounded-2xl p-6
-        bg-gradient-to-br from-black/90 via-black/80 to-black/90
-        backdrop-blur-2xl
-        border border-white/10
-        shadow-[0_30px_80px_rgba(0,0,0,0.7)]
-        text-white'
-         style={{ transformStyle: "preserve-3d" }}
-        >
-         
-            <div className='relative z-10' style={{ transform: "translateZ(30px)" }}>
-                 <div className="text-4xl mb-3">{icon}</div>
-        <h3 className="text-lg font-semibold mb-2">{title}</h3>
-        <p className="text-gray-300 text-sm leading-relaxed">{des}</p>
-
-            </div>
-          
-
-
-        </motion.div>
-    )
+function Feature({ title, des }) {
+  return (
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 200, damping: 25 }}
+      className='relative rounded-2xl p-6
+        border border-white/[0.07]
+        hover:border-violet-500/20
+        hover:bg-white/[0.03]
+        transition-colors group'
+    >
+      <div className='w-5 h-px bg-violet-500 mb-5 group-hover:w-8 transition-all duration-300 rounded-full' />
+      <h3 className="text-sm font-semibold text-white mb-2">{title}</h3>
+      <p className="text-gray-500 text-xs leading-relaxed">{des}</p>
+    </motion.div>
+  )
 }
 
 export default Home

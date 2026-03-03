@@ -22,7 +22,7 @@ function PaymentSuccess() {
 
     },[])
     return (
-        <div className='min-h-screen flex flex-col items-center justify-center p-4 gap-4'>
+        <div className='min-h-screen flex flex-col items-center justify-center p-4 gap-4 bg-[#05050f] text-white'>
             <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 360 }}
@@ -30,7 +30,7 @@ function PaymentSuccess() {
                     duration: 0.8,
                     ease: "easeOut"
                 }}
-                className="text-green-500 text-6xl">
+                className="text-green-400 text-6xl">
                 <FiCheckCircle />
 
             </motion.div>
@@ -39,7 +39,7 @@ function PaymentSuccess() {
             initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="text-2xl font-bold text-green-600">
+        className="text-2xl font-bold text-white">
             Payment Successful! Credits Added
 
             </motion.h1>

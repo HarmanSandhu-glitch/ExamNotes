@@ -9,6 +9,7 @@ import notesRouter from "./routes/genrate.route.js"
 import pdfRouter from "./routes/pdf.route.js"
 import creditRouter from "./routes/credits.route.js"
 import { stripeWebhook } from "./controllers/credits.controller.js"
+import folderRouter from "./routes/folder.route.js"
 dotenv.config()
 
 
@@ -43,6 +44,7 @@ app.use("/api/user", userRouter)
 app.use("/api/notes", notesRouter)
 app.use("/api/pdf", pdfRouter)
 app.use("/api/credit",creditRouter)
+app.use("/api/folder", folderRouter)
 
 
 

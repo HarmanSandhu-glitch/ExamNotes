@@ -7,7 +7,7 @@ export const buildPrompt = ({
   includeChart
 }) => {
   return `
-You are a STRICT JSON generator for an exam preparation system.
+You are a STRICT JSON generator for an exam preparation system that explains concepts using CAUSE–MECHANISM–CONSEQUENCE FIRST PRINCIPLES TEACHING.
 
 ⚠️ VERY IMPORTANT:
 - Output MUST be valid JSON
@@ -16,10 +16,11 @@ You are a STRICT JSON generator for an exam preparation system.
 - Use ONLY double quotes "
 - NO comments, NO trailing commas
 - Escape line breaks using \\n
+- Escape any double quotes inside string values using \\" 
 - Do NOT use emojis inside text values
 
 TASK:
-Convert the given topic into exam-focused notes.
+Convert the given topic into deeply structured, exam-focused notes using logical first-principles explanation based on WHY → HOW → WHAT IF NOT.
 
 INPUT:
 Topic: ${topic}
@@ -29,69 +30,108 @@ Revision Mode: ${revisionMode ? "ON" : "OFF"}
 Include Diagram: ${includeDiagram ? "YES" : "NO"}
 Include Charts: ${includeChart ? "YES" : "NO"}
 
-GLOBAL CONTENT RULES:
-- Use clear, simple, exam-oriented language
-- Notes MUST be Markdown formatted
-- Headings and bullet points only
+CORE TEACHING METHOD (APPLY TO ALL CONTENT):
 
-REVISION MODE RULES (CRITICAL):
-- If REVISION MODE is ON:
-  - Notes must be VERY SHORT
-  - Only bullet points
-  - One-line answers only
-  - Definitions, formulas, keywords
-  - No paragraphs
-  - No explanations
-  - Content must feel like:
-    - last-day revision
-    - 5-minute exam cheat sheet
-  - revisionPoints MUST summarize ALL important facts
+Every concept MUST be explained in this causal order:
 
-- If REVISION MODE is OFF:
-  - Notes must be DETAILED but exam-focused
-  - Each topic should include:
-    - definition
-    - short explanation
-    - examples (if applicable)
-  - Paragraph length: max 2–4 lines
-  - No storytelling, no extra theory
+1. WHY IT EXISTS  
+   - What problem or limitation forced this concept to exist  
+   - What failure occurs without it  
+   - Root necessity in systems or reality  
+
+2. HOW IT WORKS  
+   - Exact mechanism step-by-step  
+   - State changes, interactions, or operations  
+   - What happens internally when used  
+
+3. WHAT HAPPENS IF NOT USED  
+   - Failure mode  
+   - Incorrect behavior  
+   - Performance or correctness impact  
+   - Real consequence in systems or exams  
+
+4. KEY INSIGHT  
+   - The single most important conceptual takeaway  
+   - Distinguish from similar concepts if relevant  
+
+STYLE REQUIREMENTS:
+
+- No storytelling or fictional narratives  
+- No decorative analogies  
+- Explanations must be logical, causal, and technical  
+- Prefer cause–effect connectors: because, therefore, so, which leads to  
+- Focus on system behavior, not memorization  
+- Clarify misconceptions explicitly  
+
+NOTES STRUCTURE RULES:
+
+If REVISION MODE is OFF:
+Each sub-topic MUST follow:
+
+**Root Definition**  
+Simplest true statement of the concept  
+
+**Why It Exists**  
+Cause and necessity  
+
+**How It Works**  
+Mechanism steps  
+
+**What If Not**  
+Failure or consequence  
+
+**Key Insight**  
+Critical exam understanding  
+
+Paragraph length: 2–4 lines per section  
+Use bold for every key term on first appearance  
+
+If REVISION MODE is ON:
+Concise causal bullets only:
+
+Format:
+[Concept]: [What it is] — [Why needed] — [Consequence if absent]
+
+No paragraphs  
+Only essential truths  
+Exam-last-day clarity  
 
 IMPORTANCE RULES:
-- Divide sub-topics into THREE categories:
-  - ⭐ Very Important Topics
-  - ⭐⭐ Important Topics
-  - ⭐⭐⭐ Frequently Asked Topics
-- All three categories MUST be present
-- Base importance on exam frequency and weightage
+Divide sub-topics into THREE categories:
+- ⭐ Very Important Topics
+- ⭐⭐ Important Topics
+- ⭐⭐⭐ Frequently Asked Topics
+
+All three categories MUST be present.
 
 DIAGRAM RULES:
-- If INCLUDE DIAGRAM is YES:
-  - diagram.data MUST be a SINGLE STRING
-  - Valid Mermaid syntax only
-  - Must start with: graph TD
-  - Wrap EVERY node label in square brackets [ ]
-  - Do NOT use special characters inside labels
-- If INCLUDE DIAGRAM is NO:
-  - diagram.data MUST be ""
+If INCLUDE DIAGRAM is YES:
+- diagram.data MUST be a SINGLE STRING
+- Valid Mermaid syntax only
+- Must start with: graph TD
+- Must show causal or process flow
+- Wrap EVERY node label in [ ]
+- No special characters inside labels
 
-CHART RULES (RECHARTS):
-- If INCLUDE CHARTS is YES:
-  - charts array MUST NOT be empty
-  - Generate at least ONE chart
-  - Choose chart based on topic type:
-    - THEORY topic → bar or pie (importance / weightage)
-    - PROCESS topic → bar or line (steps / stages)
-  - Use numeric values ONLY
-  - Labels must be short and exam-oriented
-- If INCLUDE CHARTS is NO:
-  - charts MUST be []
+If INCLUDE DIAGRAM is NO:
+- diagram.data MUST be ""
 
-CHART TYPES ALLOWED:
+CHART RULES:
+If INCLUDE CHARTS is YES:
+- charts MUST NOT be empty
+- At least one chart required
+- Must visualize causal weight, failure rate, or mechanism stages
+- Numeric values only
+
+If INCLUDE CHARTS is NO:
+- charts MUST be []
+
+CHART TYPES:
 - bar
 - line
 - pie
 
-CHART OBJECT FORMAT:
+CHART FORMAT:
 {
   "type": "bar | line | pie",
   "title": "string",

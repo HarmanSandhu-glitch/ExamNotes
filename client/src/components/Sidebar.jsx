@@ -10,112 +10,74 @@ function Sidebar({result}) {
         return null;
     }
   return (
-    <div className='bg-white rounded-2xl border border-gray-200 shadow-sm p-5 space-y-6'>
+    <div className='border border-[#1a1a1a] bg-[#0f0f0f] p-5 space-y-6'>
         <div className='flex items-center gap-2'>
-
-            <span className='text-xl'>📌</span>
-            <h3 className='text-lg font-semibold text-indigo-600'>
+            <h3 className='text-sm font-semibold text-[#a78bfa]'>
                 Quick Exam View
             </h3>
         </div>
 
         <section>
-            <p className='text-sm font-semibold text-gray-700 mb-3'>
-                ⭐ Sub Topics (Priority Wise)
+            <p className='text-xs font-semibold text-[#555] uppercase tracking-wider mb-3'>
+                Sub Topics (Priority Wise)
             </p>
             {
                 Object.entries(result.subTopics).map(([star , topics])=>(
-                    <div key={star} className='mb-3
-              rounded-lg
-              bg-gray-50
-              border border-gray-200
-              p-3'>
-
-                <p className='text-sm font-semibold text-yellow-600 mb-1'>
-                    {star} Priority
-                </p>
-                <ul className='list-disc ml-4 text-sm text-gray-700 space-y-1'>
-                    {topics.map((t,i)=>(
-                        <li key={i}>{t}</li>
-                    ))}
-                </ul>
-              </div>
+                    <div key={star} className='mb-3 bg-[#111] border border-[#1f1f1f] p-3'>
+                        <p className='text-xs font-semibold text-yellow-400 mb-1'>
+                            {star} Priority
+                        </p>
+                        <ul className='list-disc ml-4 text-xs text-[#888] space-y-1'>
+                            {topics.map((t,i)=>(
+                                <li key={i}>{t}</li>
+                            ))}
+                        </ul>
+                    </div>
                 ))
             }
         </section>
 
-        <section className='rounded-lg
-        bg-yellow-50
-        border border-yellow-200
-        p-3'>
-            <p className='text-sm font-semibold text-gray-700 mb-1'>
-                🔥 Exam Importance
-            </p>
-            <span className='text-yellow-700 font-bold text-sm'>
-                {result.importance}
-            </span>
-       
-
-     
-
-            <p className='text-sm mt-2 font-semibold text-gray-700 mb-3'>
-             ❓ Important Questions
-            </p>
-
-            <div className='mb-4
-          rounded-lg
-          bg-indigo-50
-          border border-indigo-200
-          p-3'>
-            <p className='text-sm font-medium text-indigo-700 mb-2'>
-                   Short Questions
+        <section className='bg-[#111] border border-[#1f1f1f] p-3 space-y-4'>
+            <div>
+                <p className='text-xs font-semibold text-[#555] uppercase tracking-wider mb-1'>
+                    Exam Importance
                 </p>
-                <ul className='list-disc ml-4 text-sm text-gray-700 space-y-1'>
-                    {result.questions.short.map((t,i)=>(
-                        <li key={i}>{t}</li>
-                    ))}
-                </ul>
+                <span className='text-yellow-400 font-bold text-sm'>
+                    {result.importance}
+                </span>
+            </div>
 
-
-          </div>
-
-
-          <div className='mb-4
-          rounded-lg
-          bg-purple-50
-          border border-purple-200
-          p-3'>
-            <p className='text-sm font-medium text-purple-700 mb-2'>
-                   Long Questions
+            <div>
+                <p className='text-xs font-semibold text-[#555] uppercase tracking-wider mb-3'>
+                    Important Questions
                 </p>
-                <ul className='list-disc ml-4 text-sm text-gray-700 space-y-1'>
-                    {result.questions.long.map((t,i)=>(
-                        <li key={i}>{t}</li>
-                    ))}
-                </ul>
 
+                <div className='mb-3 bg-[#7c3aed]/[0.06] border border-[#7c3aed]/20 p-3'>
+                    <p className='text-xs font-medium text-[#a78bfa] mb-2'>Short Questions</p>
+                    <ul className='list-disc ml-4 text-xs text-[#888] space-y-1'>
+                        {result.questions.short.map((t,i)=>(
+                            <li key={i}>{t}</li>
+                        ))}
+                    </ul>
+                </div>
 
-          </div>
+                <div className='mb-3 bg-[#7c3aed]/[0.04] border border-[#7c3aed]/10 p-3'>
+                    <p className='text-xs font-medium text-[#c4b5fd] mb-2'>Long Questions</p>
+                    <ul className='list-disc ml-4 text-xs text-[#888] space-y-1'>
+                        {result.questions.long.map((t,i)=>(
+                            <li key={i}>{t}</li>
+                        ))}
+                    </ul>
+                </div>
 
-          <div className='mb-4
-          rounded-lg
-          bg-blue-50
-          border border-blue-200
-          p-3'>
-            <p className='text-sm font-medium text-blue-700 mb-2'>
-                   Diagram Question
-                </p>
-                <ul className='list-disc ml-4 text-sm text-gray-700 space-y-1'>
-                    <li>{result.questions.diagram}</li>
-                    
-                </ul>
-
-
-          </div>
+                {result.questions.diagram && (
+                    <div className='bg-[#111] border border-[#222] p-3'>
+                        <p className='text-xs font-medium text-[#888] mb-2'>Diagram Question</p>
+                        <p className='text-xs text-[#777]'>{result.questions.diagram}</p>
+                    </div>
+                )}
+            </div>
         </section>
-
-    
-      
     </div>
   )
 }

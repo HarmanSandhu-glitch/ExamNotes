@@ -9,7 +9,7 @@ function RechartSetUp({ charts }) {
                 <div key={index} className='border border-gray-200 rounded-xl p-4 bg-white'>
 
                     <h4 className='font-semibold text-gray-800 mb-3'>
-                        📊 {chart.title}
+                        {chart.title}
                     </h4>
                     <div className='h-72'>
 
